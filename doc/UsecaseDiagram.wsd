@@ -1,0 +1,17 @@
+@startuml
+title \nユースケース図
+
+!define _NONE_ " "
+
+left to right direction
+actor user
+rectangle MyPdfGenerator {
+    package _NONE_ as alias {
+        
+    }
+    user -- (checkout)
+    (checkout) .> (payment) : include
+    (help) .> (checkout) : extends
+}
+
+@enduml
