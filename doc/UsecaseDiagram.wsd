@@ -1,0 +1,25 @@
+@startuml
+title ユースケース図
+
+left to right direction
+actor user1
+actor user2
+rectangle MyPdfGenerator {
+    package PDF連結機能 {
+        user1 -- (連結するPDFファイルパスを2つ指定する)
+        user1 -- (連結したPDFファイル出力パスを指定する)
+        user1 -- (PDF連結を実行する)
+    }
+    package CSVをPDF変換する機能 {
+        user2 -- (CSVファイルパスを指定する)
+        user2 -- (変換したPDFファイル出力パスを指定する)
+        user2 -- (項目名のフォントファミリーを指定する)
+        user2 -- (項目名のフォントサイズを指定する)
+        user2 -- (内容のフォントファミリーを指定する)
+        user2 -- (内容のフォントサイズを指定する)
+        user2 -- (出力用紙サイズを指定する)
+        user2 -- (出力用紙サイズを指定する)
+    }
+}
+
+@enduml
