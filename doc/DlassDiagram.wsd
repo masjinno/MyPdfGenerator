@@ -1,0 +1,98 @@
+@startuml MyPdfGenerator クラス図
+title MyPefGenerator\nクラス図
+
+package PdfLogic {
+    interface IPdfLogic
+    class PdfLogic
+}
+
+package WpfApplication {
+    package ViewWpf {
+        class MainWindowWpf
+        class ConcatenationWpf
+        class ConvertCsvWpf
+    }
+    package ViewModelWpf {
+        class ConcatenationVMWpf
+        class ConvertCsvVMWpf
+    }
+}
+
+package UwpApplication {
+    package ViewUwp {
+        class MainWindowUwp
+        class ConcatenationUwp
+        class ConvertCsvUwp
+    }
+    package ViewModelUwp {
+        class ConcatenationVMUwp
+        class ConvertCsvVMUwp
+    }
+}
+
+package Model {
+    class PdfModel
+}
+
+' PdfLogicパッケージ
+interface IPdfLogic {
+    +Init()
+    +Concatenate(\n\tFile srcFile1,\n\tFile srcFile2,\n\tFile dstFile)
+    +ConvertCsvToPdf(\n\tFile csvFile,\n\tFile pdfFile)
+    +SetDstPageSize(PageSize pageSize)
+    +SetDstFontSize(float fontSize)
+    +SetDstFontFamily(string fontName)
+}
+class PdfLogic {
+    -PageSize dstPageSize
+    -float dstFontSize
+    -string dstFontName
+}
+class PdfModel {
+    -string[] csvHeader
+    +Init()
+    +Concatenate(\n\tFile srcFile1,\n\tFile srcFile2,\n\tFile dstFile)
+    +ConvertCsvToPdf(\n\tFile csvFile,\n\tFile pdfFile)
+    +SetDstPageSize(PageSize pageSize)
+    +SetDstPageMargin(DocumentMargin margin)
+    +SetDstFontSize(float fontSize)
+    +SetDstFontFamily(string fontName)
+}
+IPdfLogic <|.. PdfLogic
+PdfModel "1" --> "1" IPdfLogic
+
+' WpfApplicationパッケージ
+class ConcatenationVMWpf {
+    +string inputPdf1Path
+    +string inputPdf2Path
+    +string outputPdfPath
+    +ICommand BrowseInputPdf1Command()
+    +ICommand BrowseInputPdf2Command()
+    +ICommand ConcatenateCommand()
+}
+class ConvertCsvVMWpf {
+    +string pageSize
+    +Margin margin
+    +float fontSize
+    +string fontName
+    +string inputCsvFilePath
+    +string outputPdfFilePath
+}
+MainWindowWpf o-- ConcatenationWpf
+MainWindowWpf o-- ConvertCsvWpf
+ConcatenationWpf "1" -- "1" ConcatenationVMWpf
+ConvertCsvWpf "1" -- "1" ConvertCsvVMWpf
+ConcatenationVMWpf "1" --> "1" PdfModel
+ConvertCsvVMWpf "1" --> "1" PdfModel
+
+' UwpApplicationパッケージ
+MainWindowUwp o-- ConcatenationUwp
+MainWindowUwp o-- ConvertCsvUwp
+
+ConcatenationUwp "1" -- "1" ConcatenationVMUwp
+ConvertCsvUwp "1" -- "1" ConvertCsvVMUwp
+
+ConcatenationVMUwp "1" --> "1" PdfModel
+ConvertCsvVMUwp "1" --> "1" PdfModel
+
+@enduml
