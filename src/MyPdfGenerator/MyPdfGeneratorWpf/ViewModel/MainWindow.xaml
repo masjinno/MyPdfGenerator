@@ -1,0 +1,24 @@
+﻿<Window xmlns:View="clr-namespace:MyPdfGeneratorWpf.View"
+        x:Class="MyPdfGeneratorWpf.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyPdfGeneratorWpf"
+        mc:Ignorable="d"
+        Title="MyPdfGenerator"
+        Width="640"
+        Height="400">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Concatenate">
+                <Grid Background="#FFE5E5E5">
+                </Grid>
+            </TabItem>
+            <TabItem Header="Convert CSV">
+                <Grid Background="#FFE5E5E5">
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
