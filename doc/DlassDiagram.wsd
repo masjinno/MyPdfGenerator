@@ -76,7 +76,10 @@ class ConcatenationVMWpf {
 }
 class ConvertCsvVMWpf {
     +string PageSize
-    +Margin Margin
+    +string MarginTop
+    +string MarginLeft
+    +string MarginRight
+    +string MarginBottom
     +string HeaderFontSize
     +string HeaderFontName
     +string HeaderMarkupStart
