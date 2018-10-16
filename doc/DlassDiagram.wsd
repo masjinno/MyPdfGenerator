@@ -67,24 +67,24 @@ PdfModel "1" --> "1" IPdfLogic
 
 ' WpfApplicationパッケージ
 class ConcatenationVMWpf {
-    +string inputPdf1Path
-    +string inputPdf2Path
-    +string outputPdfPath
+    +string InputPdf1Path
+    +string InputPdf2Path
+    +string OutputPdfPath
     +ICommand BrowseInputPdf1Command()
     +ICommand BrowseInputPdf2Command()
     +ICommand ConcatenateCommand()
 }
 class ConvertCsvVMWpf {
-    +string pageSize
-    +Margin margin
-    +string headerFontSize
-    +string headerFontName
-    +string headerMarkupStart
-    +string headerMarkupEnd
-    +string contentFontSize
-    +string contentFontName
-    +string inputCsvFilePath
-    +string outputPdfFilePath
+    +string PageSize
+    +Margin Margin
+    +string HeaderFontSize
+    +string HeaderFontName
+    +string HeaderMarkupStart
+    +string HeaderMarkupEnd
+    +string ContentFontSize
+    +string ContentFontName
+    +string InputCsvFilePath
+    +string OutputPdfFilePath
 }
 MainWindowWpf o-- ConcatenationWpf
 MainWindowWpf o-- ConvertCsvWpf
