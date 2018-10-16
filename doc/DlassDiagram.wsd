@@ -37,8 +37,8 @@ package Model {
 ' PdfLogicパッケージ
 interface IPdfLogic {
     +Init()
-    +Concatenate(\n\tstring srcFile1,\n\tstring srcFile2,\n\tstring dstFile)
-    +ConvertCsvToPdf(\n\tstring csvFile,\n\tstring pdfFile)
+    +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFilePath)
+    +ConvertCsvToPdf(\n\tstring csvFilePath,\n\tstring pdfFilePath)
     +SetDstPageSize(PageSize pageSize)
     +SetDstMargin(Margin margin)
     +SetDstHeaderFontSize(float fontSize)
@@ -58,8 +58,8 @@ class PdfModel {
     -PageSize[] pageSizeList
     -string[] csvHeader
     +Init()
-    +Concatenate(\n\tstring srcFile1,\n\tstring srcFile2,\n\tstring dstFile)
-    +ConvertCsvToPdf(\n\tstring csvFile,\n\tstring pdfFile)
+    +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFile)
+    +ConvertCsvToPdf(\n\tstring csvFilePath,\n\tstring pdfFilePath)
     +SetDstPageSize(PageSize pageSize)
     +SetDstMargin(Margin margin)
     +SetDstHeaderFontSize(float fontSize)
