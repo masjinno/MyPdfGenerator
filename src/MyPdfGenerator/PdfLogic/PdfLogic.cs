@@ -8,7 +8,7 @@ using iTextSharp.text;
 
 namespace PdfLogic
 {
-    internal class PdfLogic : IPdfLogic
+    public class PdfLogic : IPdfLogic
     {
         private PageSize dstPageSize;
         private Margin dstMargin;
