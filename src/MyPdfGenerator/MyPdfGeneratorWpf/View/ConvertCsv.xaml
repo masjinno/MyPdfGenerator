@@ -9,6 +9,7 @@
     <UserControl.DataContext>
         <vm:ConvertCsvVM/>
     </UserControl.DataContext>
+    
     <DockPanel>
         <!-- 入力CSVパス指定 -->
         <DockPanel DockPanel.Dock="Top">
@@ -19,7 +20,7 @@
             <Button
                 DockPanel.Dock="Right"
                 Content="Browse"/>
-            <TextBox/>
+            <TextBox Text="{Binding Path=InputCsvFilePath}"/>
         </DockPanel>
 
         <!-- パラメータ指定 -->
@@ -30,7 +31,9 @@
                 <WrapPanel>
                     <StackPanel Grid.Column="0" Margin="5">
                         <TextBlock Text="Size"/>
-                        <ComboBox MinWidth="50"/>
+                        <ComboBox
+                            ItemsSource="{Binding Path=PageSizeList}"
+                            MinWidth="50"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="5">
                         <TextBlock Text="Margin"/>
@@ -49,10 +52,10 @@
                             <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Left"/>
                             <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Right"/>
                             <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Bottom"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" MinWidth="40"/>
-                            <TextBox Grid.Row="1" Grid.Column="1" MinWidth="40"/>
-                            <TextBox Grid.Row="2" Grid.Column="1" MinWidth="40"/>
-                            <TextBox Grid.Row="3" Grid.Column="1" MinWidth="40"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginTop}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginLeft}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginRight}"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginBottom}"/>
                         </Grid>
                     </StackPanel>
 
@@ -62,19 +65,19 @@
                 <WrapPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="Font Size"/>
-                        <ComboBox MinWidth="50"/>
+                        <TextBox MinWidth="50" Text="{Binding Path=HeaderFontSize}"/>
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="FontFamily"/>
-                        <ComboBox MinWidth="80"/>
+                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=HeaderFontNameList}"/>
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="Header Markup Start"/>
-                        <TextBox />
+                        <TextBox Text="{Binding Path=HeaderMarkupStart}"/>
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="Header Markup End"/>
-                        <TextBox />
+                        <TextBox Text="{Binding Path=HeaderMarkupEnd}"/>
                     </StackPanel>
                 </WrapPanel>
             </GroupBox>
@@ -82,11 +85,11 @@
                 <WrapPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="Font Size"/>
-                        <ComboBox MinWidth="50"/>
+                        <TextBox MinWidth="50" Text="{Binding Path=ContentFontSize}"/>
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="FontFamily"/>
-                        <ComboBox MinWidth="80"/>
+                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=ContentFontSize}"/>
                     </StackPanel>
                 </WrapPanel>
             </GroupBox>
@@ -101,7 +104,7 @@
             <Button
                 DockPanel.Dock="Right"
                 Content="Browse"/>
-            <TextBox/>
+            <TextBox Text="{Binding Path=OutputCsvFilePath}"/>
         </DockPanel>
         
         <!-- Convertボタン -->

@@ -11,11 +11,11 @@ namespace MyPdfGeneratorWpf.ViewModel
     {
         #region Binding用プロパティ
 
-        private string _pageSize;
-        public string PageSize
+        private string[] _pageSizeList;
+        public string[] PageSizeList
         {
-            get { return this._pageSize; }
-            set { this.SetProperty(ref this._pageSize, value); }
+            get { return this._pageSizeList; }
+            set { this.SetProperty(ref this._pageSizeList, value); }
         }
 
         private string _marginTop;
@@ -53,11 +53,11 @@ namespace MyPdfGeneratorWpf.ViewModel
             set { this.SetProperty(ref this._headerFontSize, value); }
         }
 
-        private string _headerFontName;
-        public string HeaderFontName
+        private string[] _headerFontNameList;
+        public string[] HeaderFontNameList
         {
-            get { return this._headerFontName; }
-            set { this.SetProperty(ref this._headerFontName, value); }
+            get { return this._headerFontNameList; }
+            set { this.SetProperty(ref this._headerFontNameList, value); }
         }
 
         private string _headerMarkupStart;
@@ -81,11 +81,11 @@ namespace MyPdfGeneratorWpf.ViewModel
             set { this.SetProperty(ref this._contentFontSize, value); }
         }
 
-        private string _contentFontName;
-        public string ContentFontName
+        private string _contentFontNameList;
+        public string ContentFontNameList
         {
-            get { return this._contentFontName; }
-            set { this.SetProperty(ref this._contentFontName, value); }
+            get { return this._contentFontNameList; }
+            set { this.SetProperty(ref this._contentFontNameList, value); }
         }
 
         private string _inputCsvFilePath;
