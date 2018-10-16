@@ -55,8 +55,12 @@ class PdfModel {
     +ConvertCsvToPdf(\n\tFile csvFile,\n\tFile pdfFile)
     +SetDstPageSize(PageSize pageSize)
     +SetDstPageMargin(DocumentMargin margin)
-    +SetDstFontSize(float fontSize)
-    +SetDstFontFamily(string fontName)
+    +SetDstHeaderFontSize(float fontSize)
+    +SetDstHeaderFontFamily(string fontName)
+    +SetDstHeaderMarkupStart(string markupStart)
+    +SetDstHeaderMarkupEnd(string markupEnd)
+    +SetDstContentFontSize(float fontSize)
+    +SetDstContentFontFamily(string fontName)
 }
 IPdfLogic <|.. PdfLogic
 PdfModel "1" --> "1" IPdfLogic
@@ -73,8 +77,12 @@ class ConcatenationVMWpf {
 class ConvertCsvVMWpf {
     +string pageSize
     +Margin margin
-    +float fontSize
-    +string fontName
+    +string headerFontSize
+    +string headerFontName
+    +string headerMarkupStart
+    +string headerMarkupEnd
+    +string contentFontSize
+    +string contentFontName
     +string inputCsvFilePath
     +string outputPdfFilePath
 }
