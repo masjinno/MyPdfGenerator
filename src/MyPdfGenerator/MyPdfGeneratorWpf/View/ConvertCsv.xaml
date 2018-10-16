@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="MyPdfGeneratorWpf.View.ConvertCsv"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyPdfGeneratorWpf.View"
+             mc:Ignorable="d">
+    <!-- d:DesignHeight="300" d:DesignWidth="300" -->
+    <DockPanel>
+        <!-- 入力CSVパス指定 -->
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock
+                DockPanel.Dock="Left"
+                Text="Input CSV: "
+                VerticalAlignment="Center"/>
+            <Button
+                DockPanel.Dock="Right"
+                Content="Browse"/>
+            <TextBox/>
+        </DockPanel>
+
+        <!-- パラメータ指定 -->
+        <WrapPanel
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
+            <GroupBox Header="Page Setting">
+                <WrapPanel>
+                    <StackPanel Grid.Column="0" Margin="5">
+                        <TextBlock Text="Size"/>
+                        <ComboBox MinWidth="50"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="5">
+                        <TextBlock Text="Margin"/>
+                        <Grid Margin="5,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Top"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Left"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Right"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Bottom"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" MinWidth="40"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" MinWidth="40"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" MinWidth="40"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" MinWidth="40"/>
+                        </Grid>
+                    </StackPanel>
+
+                </WrapPanel>
+            </GroupBox>
+            <GroupBox Header="CSV Header Setting">
+                <WrapPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Font Size"/>
+                        <ComboBox MinWidth="50"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="FontFamily"/>
+                        <ComboBox MinWidth="80"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Header Markup Start"/>
+                        <TextBox />
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Header Markup End"/>
+                        <TextBox />
+                    </StackPanel>
+                </WrapPanel>
+            </GroupBox>
+            <GroupBox Header="CSV Content Setting">
+                <WrapPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Font Size"/>
+                        <ComboBox MinWidth="50"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="FontFamily"/>
+                        <ComboBox MinWidth="80"/>
+                    </StackPanel>
+                </WrapPanel>
+            </GroupBox>
+        </WrapPanel>
+
+        <!-- 出力PDFパス指定 -->
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock
+                DockPanel.Dock="Left"
+                Text="Output PDF: "
+                VerticalAlignment="Center"/>
+            <Button
+                DockPanel.Dock="Right"
+                Content="Browse"/>
+            <TextBox/>
+        </DockPanel>
+        
+        <!-- Convertボタン -->
+        <Grid>
+            <Button Margin="5">
+                <Button.Content>
+                    <TextBlock FontSize="14">
+                        <Bold>Convert</Bold>
+                    </TextBlock>
+                </Button.Content>
+            </Button>
+        </Grid>
+    </DockPanel>
+</UserControl>

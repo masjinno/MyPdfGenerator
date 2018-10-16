@@ -17,6 +17,7 @@
             </TabItem>
             <TabItem Header="Convert CSV">
                 <Grid Background="#FFE5E5E5">
+                    <View:ConvertCsv/>
                 </Grid>
             </TabItem>
         </TabControl>
