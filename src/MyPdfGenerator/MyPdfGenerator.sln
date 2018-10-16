@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPdfGeneratorWpf", "MyPdfGeneratorWpf\MyPdfGeneratorWpf.csproj", "{EC29538E-40D0-43FF-BE76-D601A8BA40E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfLogic", "PdfLogic\PdfLogic.csproj", "{B58FB4D4-AEC1-4A4D-8F80-99DAF6F0E169}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EC29538E-40D0-43FF-BE76-D601A8BA40E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC29538E-40D0-43FF-BE76-D601A8BA40E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC29538E-40D0-43FF-BE76-D601A8BA40E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B58FB4D4-AEC1-4A4D-8F80-99DAF6F0E169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B58FB4D4-AEC1-4A4D-8F80-99DAF6F0E169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B58FB4D4-AEC1-4A4D-8F80-99DAF6F0E169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B58FB4D4-AEC1-4A4D-8F80-99DAF6F0E169}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
