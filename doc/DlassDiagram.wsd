@@ -41,8 +41,12 @@ interface IPdfLogic {
     +ConvertCsvToPdf(\n\tstring csvFile,\n\tstring pdfFile)
     +SetDstPageSize(PageSize pageSize)
     +SetDstMargin(Margin margin)
-    +SetDstFontSize(float fontSize)
-    +SetDstFontFamily(string fontName)
+    +SetDstHeaderFontSize(float fontSize)
+    +SetDstHeaderFontFamily(string fontName)
+    +SetDstHeaderMarkupStart(string markupStart)
+    +SetDstHeaderMarkupEnd(string markupEnd)
+    +SetDstContentFontSize(float fontSize)
+    +SetDstContentFontFamily(string fontName)
     +GetPageSizeList()
 }
 class PdfLogic {
