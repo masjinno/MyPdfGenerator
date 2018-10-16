@@ -89,7 +89,7 @@
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="FontFamily"/>
-                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=ContentFontSize}"/>
+                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=ContentFontNameList}"/>
                     </StackPanel>
                 </WrapPanel>
             </GroupBox>
