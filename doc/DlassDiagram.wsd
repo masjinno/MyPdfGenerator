@@ -42,6 +42,7 @@ interface IPdfLogic {
     +SetDstPageSize(PageSize pageSize)
     +SetDstFontSize(float fontSize)
     +SetDstFontFamily(string fontName)
+    +GetPageSizeList()
 }
 class PdfLogic {
     -PageSize dstPageSize
@@ -49,6 +50,7 @@ class PdfLogic {
     -string dstFontName
 }
 class PdfModel {
+    -PageSize[] pageSizeList
     -string[] csvHeader
     +Init()
     +Concatenate(\n\tFile srcFile1,\n\tFile srcFile2,\n\tFile dstFile)
@@ -61,6 +63,7 @@ class PdfModel {
     +SetDstHeaderMarkupEnd(string markupEnd)
     +SetDstContentFontSize(float fontSize)
     +SetDstContentFontFamily(string fontName)
+    +GetPageSizeList(): string[]
 }
 IPdfLogic <|.. PdfLogic
 PdfModel "1" --> "1" IPdfLogic
@@ -75,7 +78,7 @@ class ConcatenationVMWpf {
     +ICommand ConcatenateCommand()
 }
 class ConvertCsvVMWpf {
-    +string PageSize
+    +string[] PageSize
     +string MarginTop
     +string MarginLeft
     +string MarginRight
