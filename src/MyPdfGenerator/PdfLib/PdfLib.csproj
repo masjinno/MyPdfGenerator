@@ -7,8 +7,8 @@
     <ProjectGuid>{B58FB4D4-AEC1-4A4D-8F80-99DAF6F0E169}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PdfLogic</RootNamespace>
-    <AssemblyName>PdfLogic</AssemblyName>
+    <RootNamespace>PdfLib</RootNamespace>
+    <AssemblyName>PdfLib</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -118,5 +118,11 @@
   <ItemGroup>
     <Folder Include="Model\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PdfLib\PdfLib.csproj">
+      <Project>{b58fb4d4-aec1-4a4d-8f80-99daf6f0e169}</Project>
+      <Name>PdfLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
