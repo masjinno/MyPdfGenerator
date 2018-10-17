@@ -8,10 +8,10 @@ namespace PdfLib
 {
     public class Margin
     {
-        public float left { get; set; } = 0F;
-        public float right { get; set; } = 0F;
-        public float top { get; set; } = 0F;
-        public float bottom { get; set; } = 0F;
+        public float Left { get; set; } = 0F;
+        public float Right { get; set; } = 0F;
+        public float Top { get; set; } = 0F;
+        public float Bottom { get; set; } = 0F;
 
         public Margin()
         {
@@ -19,10 +19,10 @@ namespace PdfLib
 
         public Margin(float left, float right, float top, float bottom)
         {
-            this.left = left;
-            this.right = right;
-            this.top = top;
-            this.bottom = bottom;
+            this.Left = left;
+            this.Right = right;
+            this.Top = top;
+            this.Bottom = bottom;
         }
     }
 }
