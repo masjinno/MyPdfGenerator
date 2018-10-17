@@ -1,4 +1,5 @@
-﻿using PdfLogic;
+﻿using iTextSharp.text;
+using PdfLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Model
 
         public void Init()
         {
-            pdfLogic = new PdfLogic.PdfLogic();
+            pdfLogic = new PdfLogic();
         }
 
         public void ConvertCsvToPdf(string csvFilePath, string pdfFilePath)

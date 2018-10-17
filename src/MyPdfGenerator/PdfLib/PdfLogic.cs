@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using iTextSharp.text;
 
-namespace PdfLogic
+namespace PdfLib
 {
     public class PdfLogic : IPdfLogic
     {

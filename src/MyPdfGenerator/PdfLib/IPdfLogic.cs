@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PdfLogic
+namespace PdfLib
 {
     public interface IPdfLogic
     {
