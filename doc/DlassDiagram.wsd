@@ -1,12 +1,6 @@
 @startuml MyPdfGenerator クラス図
 title MyPefGenerator\nクラス図
 
-package PdfLogic {
-    interface IPdfLogic
-    class PdfLogic
-    class Margin
-}
-
 package WpfApplication {
     package ViewWpf {
         class MainWindowWpf
@@ -33,55 +27,18 @@ package UwpApplication {
 
 package Model {
     class PdfModel
+    enum PageOrientation
 }
 
-' PdfLogicパッケージ
-interface IPdfLogic {
-    +Init()
-    +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFilePath)
-    +ConvertCsvToPdf(\n\tstring csvFilePath,\n\tstring pdfFilePath)
-    +SetDstPageSize(PageSize pageSize)
-    +SetDstMargin(Margin margin)
-    +SetDstHeaderFontSize(float fontSize)
-    +SetDstHeaderFontFamily(string fontName)
-    +SetDstHeaderMarkupStart(string markupStart)
-    +SetDstHeaderMarkupEnd(string markupEnd)
-    +SetDstContentFontSize(float fontSize)
-    +SetDstContentFontFamily(string fontName)
-    +GetPageSizeList()
+package PdfLogic {
+    interface IPdfLogic
+    class PdfLogic
+    class Margin
 }
-class PdfLogic {
-    -PageSize dstPageSize
-    -float dstFontSize
-    -string dstFontName
-}
-class Margin {
-    +float Top
-    +float Left
-    +float Right
-    +float Bottom
-}
-IPdfLogic <|.. PdfLogic
-PdfModel "1" --> "1" IPdfLogic
-Margin "1" <- "1" PdfLogic
 
-' Modelパッケージ
-class PdfModel {
-    -PageSize[] pageSizeList
-    -string[] csvHeader
-    +Init()
-    +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFile)
-    +ConvertCsvToPdf(\n\tstring csvFilePath,\n\tstring pdfFilePath)
-    +SetDstPageSize(string pageSize)
-    +SetDstMargin(\n\tfloat top,\n\tfloat left,\n\tfloat right,\n\tfloat bottom)
-    +SetDstHeaderFontSize(float fontSize)
-    +SetDstHeaderFontFamily(string fontName)
-    +SetDstHeaderMarkupStart(string markupStart)
-    +SetDstHeaderMarkupEnd(string markupEnd)
-    +SetDstContentFontSize(float fontSize)
-    +SetDstContentFontFamily(string fontName)
-    +GetPageSizeList(): string[]
-    +GetFontFamilyList(): string[]
+package iTextSharp.text {
+    class Rectangle
+    class PageSize
 }
 
 ' WpfApplicationパッケージ
@@ -94,7 +51,9 @@ class ConcatenationVMWpf {
     +ICommand ConcatenateCommand()
 }
 class ConvertCsvVMWpf {
-    +string[] PageSize
+    +List<string> PageSize
+    +bool isPortrait
+    +bool isLandscape
     +string MarginTop
     +string MarginLeft
     +string MarginRight
@@ -124,5 +83,62 @@ ConvertCsvUwp "1" -- "1" ConvertCsvVMUwp
 
 ConcatenationVMUwp "1" --> "1" PdfModel
 ConvertCsvVMUwp "1" --> "1" PdfModel
+
+' Modelパッケージ
+class PdfModel {
+    -List<string> csvHeader
+    +Init()
+    +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFile)
+    +ConvertCsvToPdf(\n\tstring csvFilePath,\n\tstring pdfFilePath)
+    +SetDstPageSize(string pageSize)
+    +SetDstMargin(\n\tfloat top,\n\tfloat left,\n\tfloat right,\n\tfloat bottom)
+    +SetDstHeaderFontSize(float fontSize)
+    +SetDstHeaderFontFamily(string fontName)
+    +SetDstHeaderMarkupStart(string markupStart)
+    +SetDstHeaderMarkupEnd(string markupEnd)
+    +SetDstContentFontSize(float fontSize)
+    +SetDstContentFontFamily(string fontName)
+    +GetPageSizeList(): List<string>
+    +GetFontFamilyList(): List<string>
+}
+enum PageOrientation {
+    Portrait
+    Landscape
+}
+PageOrientation "1" <- "1" PdfModel : pageOrientation
+PdfModel "1" -> "*" Rectangle  : <<List>> pageSizeList
+
+' PdfLogicパッケージ
+interface IPdfLogic {
+    +Init()
+    +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFilePath)
+    +ConvertCsvToPdf(\n\tstring csvFilePath,\n\tstring pdfFilePath)
+    +SetDstPageSize(PageSize pageSize)
+    +SetDstMargin(Margin margin)
+    +SetDstHeaderFontSize(float fontSize)
+    +SetDstHeaderFontFamily(string fontName)
+    +SetDstHeaderMarkupStart(string markupStart)
+    +SetDstHeaderMarkupEnd(string markupEnd)
+    +SetDstContentFontSize(float fontSize)
+    +SetDstContentFontFamily(string fontName)
+    +GetPageSizeList()
+}
+class PdfLogic {
+    -float dstFontSize
+    -string dstFontName
+}
+class Margin {
+    +float Top
+    +float Left
+    +float Right
+    +float Bottom
+}
+IPdfLogic <|.. PdfLogic
+PdfModel "1" --> "1" IPdfLogic
+Margin "1" <- "1" PdfLogic
+PdfLogic "1" -> "1" PageSize : dstPageSize
+
+' iTextSharpパッケージ
+PageSize "1" -> "*" Rectangle
 
 @enduml
