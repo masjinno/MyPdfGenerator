@@ -10,7 +10,7 @@ namespace PdfLib
 {
     public class PdfLogic : IPdfLogic
     {
-        private PageSize dstPageSize;
+        private Rectangle dstPageSize;
         private Margin dstMargin;
         private float dstHeaderFontSize;
         private string dstHeaderFontName;
@@ -29,7 +29,7 @@ namespace PdfLib
             throw new NotImplementedException();
         }
 
-        public void SetDstPageSize(PageSize pageSize)
+        public void SetDstPageSize(Rectangle pageSize)
         {
             this.dstPageSize = pageSize;
         }
@@ -69,14 +69,17 @@ namespace PdfLib
             this.dstContentFontName = fontName;
         }
 
-        public List<PageSize> GetPageSizeList()
+        public List<Rectangle> GetPageSizeList()
         {
-            Array pageSizes = Enum.GetValues(typeof(PageSize));
-            List<PageSize> ret = new List<PageSize>();
-            foreach (PageSize ps in pageSizes)
+            List<Rectangle> ret = new List<Rectangle>()
             {
-                ret.Add(ps);
-            }
+                PageSize.A0, PageSize.A1, PageSize.A2, PageSize.A3,
+                PageSize.A4, PageSize.A5, PageSize.A6, PageSize.A7,
+                PageSize.A8, PageSize.A9, PageSize.A10,
+                PageSize.B0, PageSize.B1, PageSize.B2, PageSize.B3,
+                PageSize.B4, PageSize.B5, PageSize.B6, PageSize.B7,
+                PageSize.B8, PageSize.B9, PageSize.B10,
+            };
             return ret;
         }
     }

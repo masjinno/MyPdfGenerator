@@ -11,7 +11,7 @@ namespace Model
     public class PdfModel
     {
         private IPdfLogic pdfLogic;
-        private List<PageSize> pageSizeList;
+        private List<Rectangle> pageSizeList;
         private List<string> fontNameList;
 
         public PdfModel()
@@ -46,7 +46,7 @@ namespace Model
             if (pageSize == null) throw new ArgumentNullException();
             if (string.IsNullOrEmpty(pageSize)) throw new ArgumentException();
 
-            foreach (PageSize ps in this.pageSizeList)
+            foreach (Rectangle ps in this.pageSizeList)
             {
                 if (pageSize.Equals(ps))
                 {
@@ -101,7 +101,7 @@ namespace Model
         public List<string> GetPageSizeList()
         {
             List<string> ret = new List<string>();
-            foreach (PageSize ps in this.pageSizeList)
+            foreach (Rectangle ps in this.pageSizeList)
             {
                 ret.Add(ps.ToString());
             }

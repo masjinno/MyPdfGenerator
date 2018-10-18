@@ -12,7 +12,7 @@ namespace PdfLib
     {
         void Init();
         void ConvertCsvToPdf(string csvFile, string pdfFile);
-        void SetDstPageSize(PageSize pageSize);
+        void SetDstPageSize(Rectangle pageSize);
         void SetDstMargin(Margin margin);
         void SetDstHeaderFontSize(float fontSize);
         void SetDstHeaderFontFamily(string fontName);
@@ -20,6 +20,6 @@ namespace PdfLib
         void SetDstHeaderMarkupEnd(string markupEnd);
         void SetDstContentFontSize(float fontSize);
         void SetDstContentFontFamily(string fontName);
-        List<PageSize> GetPageSizeList();
+        List<Rectangle> GetPageSizeList();
     }
 }

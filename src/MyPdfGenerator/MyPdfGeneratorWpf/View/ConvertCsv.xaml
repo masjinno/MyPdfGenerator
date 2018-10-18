@@ -12,7 +12,7 @@
     
     <DockPanel>
         <!-- 入力CSVパス指定 -->
-        <DockPanel DockPanel.Dock="Top">
+        <DockPanel DockPanel.Dock="Top" Margin="5">
             <TextBlock
                 DockPanel.Dock="Left"
                 Text="Input CSV: "
@@ -24,18 +24,21 @@
         </DockPanel>
 
         <!-- パラメータ指定 -->
-        <WrapPanel
-            DockPanel.Dock="Top"
-            Orientation="Horizontal">
+        <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
             <GroupBox Header="Page Setting">
                 <WrapPanel>
-                    <StackPanel Grid.Column="0" Margin="5">
+                    <StackPanel Margin="5">
                         <TextBlock Text="Size"/>
                         <ComboBox
                             ItemsSource="{Binding Path=PageSizeList}"
                             MinWidth="50"/>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="5">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Orientation"/>
+                        <RadioButton Content="portrait"/>
+                        <RadioButton Content="landscape"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
                         <TextBlock Text="Margin"/>
                         <Grid Margin="5,0,0,0">
                             <Grid.RowDefinitions>
@@ -58,10 +61,9 @@
                             <TextBox Grid.Row="3" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginBottom}"/>
                         </Grid>
                     </StackPanel>
-
                 </WrapPanel>
             </GroupBox>
-            <GroupBox Header="CSV Header Setting">
+            <GroupBox Header="CSV Header Setting" Margin="5,0,0,0">
                 <WrapPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="Font Size"/>
@@ -81,7 +83,7 @@
                     </StackPanel>
                 </WrapPanel>
             </GroupBox>
-            <GroupBox Header="CSV Content Setting">
+            <GroupBox Header="CSV Content Setting" Margin="5,0,0,0">
                 <WrapPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="Font Size"/>
@@ -96,7 +98,7 @@
         </WrapPanel>
 
         <!-- 出力PDFパス指定 -->
-        <DockPanel DockPanel.Dock="Top">
+        <DockPanel DockPanel.Dock="Top" Margin="5">
             <TextBlock
                 DockPanel.Dock="Left"
                 Text="Output PDF: "
