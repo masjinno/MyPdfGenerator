@@ -12,8 +12,12 @@ namespace PdfLib
     {
         private PageSize dstPageSize;
         private Margin dstMargin;
-        private float dstFontSize;
-        private string dstFontName;
+        private float dstHeaderFontSize;
+        private string dstHeaderFontName;
+        private string dstHeaderMarkupStart;
+        private string dstHeaderMarkupEnd;
+        private float dstContentFontSize;
+        private string dstContentFontName;
 
         public void Init()
         {
@@ -35,23 +39,43 @@ namespace PdfLib
             this.dstMargin = margin;
         }
 
-        public void SetDstFontSize(float fontSize)
+        public void SetDstHeaderFontSize(float fontSize)
         {
-            this.dstFontSize = fontSize;
+            this.dstHeaderFontSize = fontSize;
         }
 
-        public void SetDstFontFamily(string fontName)
+        public void SetDstHeaderFontFamily(string fontName)
         {
-            this.dstFontName = fontName;
+            this.dstHeaderFontName = fontName;
         }
 
-        public PageSize[] GetPageSizeList()
+        public void SetDstHeaderMarkupStart(string markupStart)
+        {
+            this.dstHeaderMarkupStart = markupStart;
+        }
+
+        public void SetDstHeaderMarkupEnd(string markupEnd)
+        {
+            this.dstHeaderMarkupEnd = markupEnd;
+        }
+
+        public void SetDstContentFontSize(float fontSize)
+        {
+            this.dstContentFontSize = fontSize;
+        }
+
+        public void SetDstContentFontFamily(string fontName)
+        {
+            this.dstContentFontName = fontName;
+        }
+
+        public List<PageSize> GetPageSizeList()
         {
             Array pageSizes = Enum.GetValues(typeof(PageSize));
-            PageSize[] ret = new PageSize[pageSizes.Length];
-            for (int index=0; index< pageSizes.Length; index++)
+            List<PageSize> ret = new List<PageSize>();
+            foreach (PageSize ps in pageSizes)
             {
-                ret[index] = (PageSize)pageSizes.GetValue(index);
+                ret.Add(ps);
             }
             return ret;
         }

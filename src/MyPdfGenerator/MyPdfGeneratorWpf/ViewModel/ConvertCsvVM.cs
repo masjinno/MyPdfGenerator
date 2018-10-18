@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,5 +104,17 @@ namespace MyPdfGeneratorWpf.ViewModel
         }
 
         #endregion
+
+        private PdfModel pdfModel;
+
+        public ConvertCsvVM()
+        {
+            this.Init();
+        }
+        
+        private void Init()
+        {
+            this.pdfModel = new PdfModel();
+        }
     }
 }
