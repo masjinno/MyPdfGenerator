@@ -2,9 +2,6 @@
 using PdfLib;
 using System;
 using System.Collections.Generic;
-using Microsoft.Win32;
-using System.Windows;
-using System.IO;
 
 namespace Model
 {
@@ -46,7 +43,9 @@ namespace Model
         {
             if (string.IsNullOrEmpty(csvFilePath) || string.IsNullOrEmpty(pdfFilePath)) throw new ArgumentNullException();
 
-
+            CsvModel csvModel = new CsvModel();
+            csvModel.LoadCsv(csvFilePath);
+            List<string> header = csvModel.GetHeaderList();
 
             throw new NotImplementedException();
         }
