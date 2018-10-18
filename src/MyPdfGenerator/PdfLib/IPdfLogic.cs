@@ -1,10 +1,4 @@
 ﻿using iTextSharp.text;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PdfLib
 {
@@ -20,6 +14,5 @@ namespace PdfLib
         void SetDstHeaderMarkupEnd(string markupEnd);
         void SetDstContentFontSize(float fontSize);
         void SetDstContentFontFamily(string fontName);
-        List<Rectangle> GetPageSizeList();
     }
 }

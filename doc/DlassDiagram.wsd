@@ -52,8 +52,8 @@ class ConcatenationVMWpf {
 }
 class ConvertCsvVMWpf {
     +List<string> PageSize
-    +bool isPortrait
-    +bool isLandscape
+    +bool IsPortrait
+    +bool IsLandscape
     +string MarginTop
     +string MarginLeft
     +string MarginRight
@@ -113,7 +113,7 @@ interface IPdfLogic {
     +Init()
     +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFilePath)
     +ConvertCsvToPdf(\n\tstring csvFilePath,\n\tstring pdfFilePath)
-    +SetDstPageSize(PageSize pageSize)
+    +SetDstPageSize(Rectangle pageSize)
     +SetDstMargin(Margin margin)
     +SetDstHeaderFontSize(float fontSize)
     +SetDstHeaderFontFamily(string fontName)
@@ -121,7 +121,6 @@ interface IPdfLogic {
     +SetDstHeaderMarkupEnd(string markupEnd)
     +SetDstContentFontSize(float fontSize)
     +SetDstContentFontFamily(string fontName)
-    +GetPageSizeList()
 }
 class PdfLogic {
     -float dstFontSize

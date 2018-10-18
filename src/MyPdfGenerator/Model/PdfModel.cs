@@ -2,16 +2,24 @@
 using PdfLib;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Win32;
+using System.Windows;
+using System.IO;
 
 namespace Model
 {
     public class PdfModel
     {
         private IPdfLogic pdfLogic;
-        private List<Rectangle> pageSizeList;
+        private readonly List<string> pageSizeList = new List<string>()
+            {
+                nameof(PageSize.A0), nameof(PageSize.A1), nameof(PageSize.A2), nameof(PageSize.A3),
+                nameof(PageSize.A4), nameof(PageSize.A5), nameof(PageSize.A6), nameof(PageSize.A7),
+                nameof(PageSize.A8), nameof(PageSize.A9), nameof(PageSize.A10),
+                nameof(PageSize.B0), nameof(PageSize.B1), nameof(PageSize.B2), nameof(PageSize.B3),
+                nameof(PageSize.B4), nameof(PageSize.B5), nameof(PageSize.B6), nameof(PageSize.B7),
+                nameof(PageSize.B8), nameof(PageSize.B9), nameof(PageSize.B10),
+            };
         private List<string> fontNameList;
 
         public PdfModel()
@@ -24,9 +32,6 @@ namespace Model
             // Initialize this.pdfLogic
             this.pdfLogic = new PdfLogic();
 
-            // Initialize this.pageSizeList
-            this.pageSizeList = this.pdfLogic.GetPageSizeList();
-
             // Initialize this.fontNames
             this.fontNameList = new List<string>();
             FontFactory.RegisterDirectory("C:\\WINDOWS\\Fonts");
@@ -34,10 +39,15 @@ namespace Model
             {
                 fontNameList.Add(fontname);
             }
+            this.fontNameList.Sort();
         }
 
         public void ConvertCsvToPdf(string csvFilePath, string pdfFilePath)
         {
+            if (string.IsNullOrEmpty(csvFilePath) || string.IsNullOrEmpty(pdfFilePath)) throw new ArgumentNullException();
+
+
+
             throw new NotImplementedException();
         }
 
@@ -45,22 +55,8 @@ namespace Model
         {
             if (pageSize == null) throw new ArgumentNullException();
             if (string.IsNullOrEmpty(pageSize)) throw new ArgumentException();
-
-            foreach (Rectangle ps in this.pageSizeList)
-            {
-                if (pageSize.Equals(ps))
-                {
-                    this.pdfLogic.SetDstPageSize(ps);
-                    return;
-                }
-            }
-
-            throw new ArgumentOutOfRangeException(
-                new StringBuilder()
-                .Append("Argument '")
-                .Append(nameof(pageSize))
-                .Append("' is illegal value.")
-                .ToString());
+            
+            this.pdfLogic.SetDstPageSize(PageSize.GetRectangle(pageSize));
         }
 
         public void SetDstMargin(float top, float left, float right, float bottom)
@@ -100,12 +96,7 @@ namespace Model
 
         public List<string> GetPageSizeList()
         {
-            List<string> ret = new List<string>();
-            foreach (Rectangle ps in this.pageSizeList)
-            {
-                ret.Add(ps.ToString());
-            }
-            return ret;
+            return this.pageSizeList;
         }
 
         public List<string> GetFontFamilyList()

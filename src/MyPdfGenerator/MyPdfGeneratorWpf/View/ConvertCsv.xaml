@@ -19,7 +19,8 @@
                 VerticalAlignment="Center"/>
             <Button
                 DockPanel.Dock="Right"
-                Content="Browse"/>
+                Content="Browse"
+                Command="{Binding Path=BrowseInputCsv}"/>
             <TextBox Text="{Binding Path=InputCsvFilePath}"/>
         </DockPanel>
 
@@ -30,13 +31,14 @@
                     <StackPanel Margin="5">
                         <TextBlock Text="Size"/>
                         <ComboBox
+                            MinWidth="50"
                             ItemsSource="{Binding Path=PageSizeList}"
-                            MinWidth="50"/>
+                            SelectedItem="{Binding Path=PageSizeSelected}"/>
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="Orientation"/>
-                        <RadioButton Content="portrait"/>
-                        <RadioButton Content="landscape"/>
+                        <RadioButton Content="portrait" IsChecked="{Binding Path=IsPortrait}"/>
+                        <RadioButton Content="landscape" IsChecked="{Binding Path=IsLandscape}"/>
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="Margin"/>
@@ -71,7 +73,7 @@
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="FontFamily"/>
-                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=HeaderFontNameList}"/>
+                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=HeaderFontNameList}" SelectedItem="{Binding Path=HeaderFontNameSelected}"/>
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="Header Markup Start"/>
@@ -91,7 +93,7 @@
                     </StackPanel>
                     <StackPanel Margin="5">
                         <TextBlock Text="FontFamily"/>
-                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=ContentFontNameList}"/>
+                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=ContentFontNameList}" SelectedItem="{Binding Path=ContentFontNameSelected}"/>
                     </StackPanel>
                 </WrapPanel>
             </GroupBox>
@@ -105,13 +107,14 @@
                 VerticalAlignment="Center"/>
             <Button
                 DockPanel.Dock="Right"
-                Content="Browse"/>
-            <TextBox Text="{Binding Path=OutputCsvFilePath}"/>
+                Content="Browse"
+                Command="{Binding Path=BrowseOutputPdf}"/>
+            <TextBox Text="{Binding Path=OutputPdfFilePath}"/>
         </DockPanel>
         
         <!-- Convertボタン -->
         <Grid>
-            <Button Margin="5">
+            <Button Margin="5" Command="{Binding Path=ConvertCsvToPdf}">
                 <Button.Content>
                     <TextBlock FontSize="14">
                         <Bold>Convert</Bold>
