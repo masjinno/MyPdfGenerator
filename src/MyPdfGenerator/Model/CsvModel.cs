@@ -8,9 +8,11 @@ namespace Model
     {
         private List<string[]> table;
 
+        public List<CheckItem> HeaderItems { get; set; }
+
         public void LoadCsv(string csvFilePath)
         {
-            table = new List<string[]>();
+            this.table = new List<string[]>();
             using (TextFieldParser parser = new TextFieldParser(csvFilePath))
             {
                 parser.Delimiters = new string[] { "," };
@@ -20,13 +22,29 @@ namespace Model
                     this.table.Add(fields);
                 }
             }
+
+            this.HeaderItems = new List<CheckItem>();
+            foreach(string head in this.table[0])
+            {
+                CheckItem item = new CheckItem();
+                item.Text = head;
+                item.IsChecked = true;
+                this.HeaderItems.Add(item);
+            }
         }
 
-        public List<string> GetHeaderList()
+        public List<CheckItem> GetHeaderList()
         {
-            if (table == null) throw new NotSupportedException("Call LoadCsv method before calling GetHeaderList method.");
+            if (this.HeaderItems.Count == 0) throw new NotSupportedException("Call LoadCsv method before calling GetHeaderList method.");
 
-            return new List<string>(this.table[0]);
+            return this.HeaderItems;
+        }
+
+        public List<string[]> GetContentTable()
+        {
+            if (this.table.Count == 0) throw new NotSupportedException("Call LoadCsv method before calling GetHeaderList method.");
+
+            return table.GetRange(1, table.Count - 1);
         }
     }
 }

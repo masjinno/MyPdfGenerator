@@ -27,7 +27,10 @@ package UwpApplication {
 
 package Model {
     class PdfModel
+    class CsvModel
+    class FileModel
     enum PageOrientation
+    class CheckItem
 }
 
 package PdfLogic {
@@ -51,7 +54,8 @@ class ConcatenationVMWpf {
     +ICommand ConcatenateCommand()
 }
 class ConvertCsvVMWpf {
-    +List<string> PageSize
+    +List<string> PageSizeList
+    +string PageSizeSelected
     +bool IsPortrait
     +bool IsLandscape
     +string MarginTop
@@ -59,20 +63,28 @@ class ConvertCsvVMWpf {
     +string MarginRight
     +string MarginBottom
     +string HeaderFontSize
-    +string HeaderFontName
+    +string HeaderFontNameList
+    +string HeaderFontNameSelected
     +string HeaderMarkupStart
     +string HeaderMarkupEnd
     +string ContentFontSize
-    +string ContentFontName
+    +string ContentFontNameList
+    +string ContentFontNameSelected
     +string InputCsvFilePath
     +string OutputPdfFilePath
+    +ICommand BrowseInputCsv()
+    +ICommand BrowseOutputPdf()
+    +ICommand ConvertCsvToPdf()
 }
 MainWindowWpf o-- ConcatenationWpf
 MainWindowWpf o-- ConvertCsvWpf
 ConcatenationWpf "1" -- "1" ConcatenationVMWpf
 ConvertCsvWpf "1" -- "1" ConvertCsvVMWpf
 ConcatenationVMWpf "1" --> "1" PdfModel
-ConvertCsvVMWpf "1" --> "1" PdfModel
+ConvertCsvVMWpf "1" -> "1" PdfModel : pdfModel
+ConvertCsvVMWpf "1" -> "1" CsvModel : csvModel
+ConvertCsvVMWpf "1" -> "*" CheckItem : <<List>> TargetColumn
+ConvertCsvVMWpf "1" -> "1" FileModel : fileModel
 
 ' UwpApplicationパッケージ
 MainWindowUwp o-- ConcatenationUwp
@@ -89,9 +101,11 @@ class PdfModel {
     -List<string> csvHeader
     +Init()
     +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFile)
-    +ConvertCsvToPdf(\n\tstring csvFilePath,\n\tstring pdfFilePath)
+    +ConvertCsvToPdf(\n\tList<CheckItem> csvHeader,\n\tList<string[]> csvContent,\n\tstring pdfFilePath)
     +SetDstPageSize(string pageSize)
     +SetDstMargin(\n\tfloat top,\n\tfloat left,\n\tfloat right,\n\tfloat bottom)
+    +SetDstPagePortrait()
+    +SetDstPageLandscape()
     +SetDstHeaderFontSize(float fontSize)
     +SetDstHeaderFontFamily(string fontName)
     +SetDstHeaderMarkupStart(string markupStart)
@@ -105,15 +119,34 @@ enum PageOrientation {
     Portrait
     Landscape
 }
+class CsvModel {
+    +List<CheckItem> HeaderItems
+    -List<string[]> table
+    +LoadCsv(string csvFilePath)
+    +GetHeaderList(): List<CheckItem>
+    +GetContentTable(): List<string[]>
+}
+class FileModel {
+    +GetOpenFilePath(): string
+    +GetOpenFilePath(\n\tstring fileDescription,\n\tstring extension): string
+    +GetSaveFilepath(): string
+    +GetSaveFilePath(\n\tstring fileDescription,\n\tstring extension): string
+}
+class CheckItem {
+    +bool IsChecked
+    +string Text
+}
+PdfModel "1" --> "1" IPdfLogic : pdfLogic
 PageOrientation "1" <- "1" PdfModel : pageOrientation
-PdfModel "1" -> "*" Rectangle  : <<List>> pageSizeList
+PdfModel "1" -> "*" Rectangle : <<List>> pageSizeList
 
 ' PdfLogicパッケージ
 interface IPdfLogic {
     +Init()
     +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFilePath)
-    +ConvertCsvToPdf(\n\tstring csvFilePath,\n\tstring pdfFilePath)
+    +ConvertCsvToPdf(\n\tList<CheckItem> csvHeader,\n\tList<string[]> csvContent,\n\tstring pdfFilePath)
     +SetDstPageSize(Rectangle pageSize)
+    +SetIsDstPageRotate(bool rotate)
     +SetDstMargin(Margin margin)
     +SetDstHeaderFontSize(float fontSize)
     +SetDstHeaderFontFamily(string fontName)
@@ -133,7 +166,6 @@ class Margin {
     +float Bottom
 }
 IPdfLogic <|.. PdfLogic
-PdfModel "1" --> "1" IPdfLogic
 Margin "1" <- "1" PdfLogic
 PdfLogic "1" -> "1" PageSize : dstPageSize
 

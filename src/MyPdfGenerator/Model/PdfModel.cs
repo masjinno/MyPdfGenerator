@@ -39,13 +39,10 @@ namespace Model
             this.fontNameList.Sort();
         }
 
-        public void ConvertCsvToPdf(string csvFilePath, string pdfFilePath)
+        public void ConvertCsvToPdf(List<CheckItem> csvHeader, List<string[]> csvContent, string pdfFilePath)
         {
-            if (string.IsNullOrEmpty(csvFilePath) || string.IsNullOrEmpty(pdfFilePath)) throw new ArgumentNullException();
-
-            CsvModel csvModel = new CsvModel();
-            csvModel.LoadCsv(csvFilePath);
-            List<string> header = csvModel.GetHeaderList();
+            if (string.IsNullOrEmpty(pdfFilePath)) throw new ArgumentNullException();
+            if (csvHeader.Count == 0 || csvContent.Count == 0) throw new NotSupportedException();
 
             throw new NotImplementedException();
         }
@@ -61,6 +58,16 @@ namespace Model
         public void SetDstMargin(float top, float left, float right, float bottom)
         {
             this.pdfLogic.SetDstMargin(new Margin(top, left, right, bottom));
+        }
+
+        public void SetDstPagePortrait()
+        {
+            this.pdfLogic.SetIsDstPageRotate(false);
+        }
+
+        public void SetDstPageLandscape()
+        {
+            this.pdfLogic.SetIsDstPageRotate(true);
         }
 
         public void SetDstHeaderFontSize(float fontSize)

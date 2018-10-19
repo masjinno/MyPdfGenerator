@@ -9,118 +9,130 @@
     <UserControl.DataContext>
         <vm:ConvertCsvVM/>
     </UserControl.DataContext>
-    
-    <DockPanel>
-        <!-- 入力CSVパス指定 -->
-        <DockPanel DockPanel.Dock="Top" Margin="5">
-            <TextBlock
+
+    <ScrollViewer>
+        <DockPanel>
+            <!-- 入力CSVパス指定 -->
+            <DockPanel DockPanel.Dock="Top" Margin="5">
+                <TextBlock
                 DockPanel.Dock="Left"
                 Text="Input CSV: "
                 VerticalAlignment="Center"/>
-            <Button
+                <Button
                 DockPanel.Dock="Right"
                 Content="Browse"
                 Command="{Binding Path=BrowseInputCsv}"/>
-            <TextBox Text="{Binding Path=InputCsvFilePath}"/>
-        </DockPanel>
+                <TextBox Text="{Binding Path=InputCsvFilePath}"/>
+            </DockPanel>
 
-        <!-- パラメータ指定 -->
-        <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
-            <GroupBox Header="Page Setting">
-                <WrapPanel>
-                    <StackPanel Margin="5">
-                        <TextBlock Text="Size"/>
-                        <ComboBox
+            <!-- パラメータ指定 -->
+            <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+                <GroupBox Header="Page Setting">
+                    <WrapPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Size"/>
+                            <ComboBox
                             MinWidth="50"
                             ItemsSource="{Binding Path=PageSizeList}"
                             SelectedItem="{Binding Path=PageSizeSelected}"/>
-                    </StackPanel>
-                    <StackPanel Margin="5">
-                        <TextBlock Text="Orientation"/>
-                        <RadioButton Content="portrait" IsChecked="{Binding Path=IsPortrait}"/>
-                        <RadioButton Content="landscape" IsChecked="{Binding Path=IsLandscape}"/>
-                    </StackPanel>
-                    <StackPanel Margin="5">
-                        <TextBlock Text="Margin"/>
-                        <Grid Margin="5,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Top"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Left"/>
-                            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Right"/>
-                            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Bottom"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginTop}"/>
-                            <TextBox Grid.Row="1" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginLeft}"/>
-                            <TextBox Grid.Row="2" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginRight}"/>
-                            <TextBox Grid.Row="3" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginBottom}"/>
-                        </Grid>
-                    </StackPanel>
-                </WrapPanel>
-            </GroupBox>
-            <GroupBox Header="CSV Header Setting" Margin="5,0,0,0">
-                <WrapPanel>
-                    <StackPanel Margin="5">
-                        <TextBlock Text="Font Size"/>
-                        <TextBox MinWidth="50" Text="{Binding Path=HeaderFontSize}"/>
-                    </StackPanel>
-                    <StackPanel Margin="5">
-                        <TextBlock Text="FontFamily"/>
-                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=HeaderFontNameList}" SelectedItem="{Binding Path=HeaderFontNameSelected}"/>
-                    </StackPanel>
-                    <StackPanel Margin="5">
-                        <TextBlock Text="Header Markup Start"/>
-                        <TextBox Text="{Binding Path=HeaderMarkupStart}"/>
-                    </StackPanel>
-                    <StackPanel Margin="5">
-                        <TextBlock Text="Header Markup End"/>
-                        <TextBox Text="{Binding Path=HeaderMarkupEnd}"/>
-                    </StackPanel>
-                </WrapPanel>
-            </GroupBox>
-            <GroupBox Header="CSV Content Setting" Margin="5,0,0,0">
-                <WrapPanel>
-                    <StackPanel Margin="5">
-                        <TextBlock Text="Font Size"/>
-                        <TextBox MinWidth="50" Text="{Binding Path=ContentFontSize}"/>
-                    </StackPanel>
-                    <StackPanel Margin="5">
-                        <TextBlock Text="FontFamily"/>
-                        <ComboBox MinWidth="80" ItemsSource="{Binding Path=ContentFontNameList}" SelectedItem="{Binding Path=ContentFontNameSelected}"/>
-                    </StackPanel>
-                </WrapPanel>
-            </GroupBox>
-        </WrapPanel>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Orientation"/>
+                            <RadioButton Content="portrait" IsChecked="{Binding Path=IsPortrait}"/>
+                            <RadioButton Content="landscape" IsChecked="{Binding Path=IsLandscape}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Margin"/>
+                            <Grid Margin="5,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Top"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Left"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Right"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Bottom"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginTop}"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginLeft}"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginRight}"/>
+                                <TextBox Grid.Row="3" Grid.Column="1" MinWidth="40" Text="{Binding Path=MarginBottom}"/>
+                            </Grid>
+                        </StackPanel>
+                    </WrapPanel>
+                </GroupBox>
+                <GroupBox Header="CSV Header Setting" Margin="5,0,0,0">
+                    <WrapPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Font Size"/>
+                            <TextBox MinWidth="50" Text="{Binding Path=HeaderFontSize}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="FontFamily"/>
+                            <ComboBox MinWidth="80" ItemsSource="{Binding Path=HeaderFontNameList}" SelectedItem="{Binding Path=HeaderFontNameSelected}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Header Markup Start"/>
+                            <TextBox Text="{Binding Path=HeaderMarkupStart}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Header Markup End"/>
+                            <TextBox Text="{Binding Path=HeaderMarkupEnd}"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="Output target" Margin="5"/>
+                            <ItemsControl ItemsSource="{Binding Path=TargetColumn}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Path=IsChecked}" Content="{Binding Path=Text}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </WrapPanel>
+                </GroupBox>
+                <GroupBox Header="CSV Content Setting" Margin="5,0,0,0">
+                    <WrapPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Font Size"/>
+                            <TextBox MinWidth="50" Text="{Binding Path=ContentFontSize}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="FontFamily"/>
+                            <ComboBox MinWidth="80" ItemsSource="{Binding Path=ContentFontNameList}" SelectedItem="{Binding Path=ContentFontNameSelected}"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </GroupBox>
+            </WrapPanel>
 
-        <!-- 出力PDFパス指定 -->
-        <DockPanel DockPanel.Dock="Top" Margin="5">
-            <TextBlock
+            <!-- 出力PDFパス指定 -->
+            <DockPanel DockPanel.Dock="Top" Margin="5">
+                <TextBlock
                 DockPanel.Dock="Left"
                 Text="Output PDF: "
                 VerticalAlignment="Center"/>
-            <Button
+                <Button
                 DockPanel.Dock="Right"
                 Content="Browse"
                 Command="{Binding Path=BrowseOutputPdf}"/>
-            <TextBox Text="{Binding Path=OutputPdfFilePath}"/>
-        </DockPanel>
-        
-        <!-- Convertボタン -->
-        <Grid>
-            <Button Margin="5" Command="{Binding Path=ConvertCsvToPdf}">
-                <Button.Content>
-                    <TextBlock FontSize="14">
+                <TextBox Text="{Binding Path=OutputPdfFilePath}"/>
+            </DockPanel>
+
+            <!-- Convertボタン -->
+            <Grid>
+                <Button Margin="5" Command="{Binding Path=ConvertCsvToPdf}">
+                    <Button.Content>
+                        <TextBlock FontSize="14">
                         <Bold>Convert</Bold>
-                    </TextBlock>
-                </Button.Content>
-            </Button>
-        </Grid>
-    </DockPanel>
+                        </TextBlock>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </DockPanel>
+    </ScrollViewer>
 </UserControl>

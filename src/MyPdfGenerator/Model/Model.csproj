@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckItem.cs" />
     <Compile Include="CsvModel.cs" />
     <Compile Include="FileModel.cs" />
     <Compile Include="PdfModel.cs" />

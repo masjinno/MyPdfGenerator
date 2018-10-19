@@ -7,6 +7,7 @@ namespace PdfLib
     {
         private Rectangle dstPageSize;
         private Margin dstMargin;
+        private bool isDstPageRotate;
         private float dstHeaderFontSize;
         private string dstHeaderFontName;
         private string dstHeaderMarkupStart;
@@ -32,6 +33,11 @@ namespace PdfLib
         public void SetDstMargin(Margin margin)
         {
             this.dstMargin = margin;
+        }
+
+        public void SetIsDstPageRotate(bool rotate)
+        {
+            this.isDstPageRotate = rotate;
         }
 
         public void SetDstHeaderFontSize(float fontSize)
