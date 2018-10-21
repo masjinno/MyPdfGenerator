@@ -1,11 +1,6 @@
 @startuml MyPdfGenerator クラス図
 title MyPefGenerator\nクラス図
 
-package PdfLogic {
-    interface IPdfLogic
-    class PdfLogic
-}
-
 package WpfApplication {
     package ViewWpf {
         class MainWindowWpf
@@ -32,58 +27,64 @@ package UwpApplication {
 
 package Model {
     class PdfModel
+    class CsvModel
+    class FileModel
+    enum PageOrientation
+    class CheckItem
 }
 
-' PdfLogicパッケージ
-interface IPdfLogic {
-    +Init()
-    +Concatenate(\n\tFile srcFile1,\n\tFile srcFile2,\n\tFile dstFile)
-    +ConvertCsvToPdf(\n\tFile csvFile,\n\tFile pdfFile)
-    +SetDstPageSize(PageSize pageSize)
-    +SetDstFontSize(float fontSize)
-    +SetDstFontFamily(string fontName)
+package PdfLogic {
+    interface IPdfLogic
+    class PdfLogic
+    class Margin
 }
-class PdfLogic {
-    -PageSize dstPageSize
-    -float dstFontSize
-    -string dstFontName
+
+package iTextSharp.text {
+    class Rectangle
+    class PageSize
 }
-class PdfModel {
-    -string[] csvHeader
-    +Init()
-    +Concatenate(\n\tFile srcFile1,\n\tFile srcFile2,\n\tFile dstFile)
-    +ConvertCsvToPdf(\n\tFile csvFile,\n\tFile pdfFile)
-    +SetDstPageSize(PageSize pageSize)
-    +SetDstPageMargin(DocumentMargin margin)
-    +SetDstFontSize(float fontSize)
-    +SetDstFontFamily(string fontName)
-}
-IPdfLogic <|.. PdfLogic
-PdfModel "1" --> "1" IPdfLogic
 
 ' WpfApplicationパッケージ
 class ConcatenationVMWpf {
-    +string inputPdf1Path
-    +string inputPdf2Path
-    +string outputPdfPath
+    +string InputPdf1Path
+    +string InputPdf2Path
+    +string OutputPdfPath
     +ICommand BrowseInputPdf1Command()
     +ICommand BrowseInputPdf2Command()
     +ICommand ConcatenateCommand()
 }
 class ConvertCsvVMWpf {
-    +string pageSize
-    +Margin margin
-    +float fontSize
-    +string fontName
-    +string inputCsvFilePath
-    +string outputPdfFilePath
+    +List<string> PageSizeList
+    +string PageSizeSelected
+    +bool IsPortrait
+    +bool IsLandscape
+    +string MarginTop
+    +string MarginLeft
+    +string MarginRight
+    +string MarginBottom
+    +string HeaderFontSize
+    +string HeaderFontNameList
+    +string HeaderFontNameSelected
+    +string HeaderMarkupStart
+    +string HeaderMarkupEnd
+    +string ContentFontSize
+    +string ContentFontNameList
+    +string ContentFontNameSelected
+    +string InputCsvFilePath
+    +string OutputPdfFilePath
+    +ICommand BrowseInputCsv()
+    +ICommand BrowseOutputPdf()
+    +ICommand ConvertCsvToPdf()
 }
 MainWindowWpf o-- ConcatenationWpf
 MainWindowWpf o-- ConvertCsvWpf
 ConcatenationWpf "1" -- "1" ConcatenationVMWpf
 ConvertCsvWpf "1" -- "1" ConvertCsvVMWpf
 ConcatenationVMWpf "1" --> "1" PdfModel
-ConvertCsvVMWpf "1" --> "1" PdfModel
+ConvertCsvVMWpf "1" -> "1" PdfModel : pdfModel
+ConvertCsvVMWpf "1" -> "1" CsvModel : csvModel
+ConvertCsvVMWpf "1" -> "*" CheckItem : <<List>> TargetColumn
+ConvertCsvVMWpf "1" -> "1" FileModel : fileModel
 
 ' UwpApplicationパッケージ
 MainWindowUwp o-- ConcatenationUwp
@@ -94,5 +95,81 @@ ConvertCsvUwp "1" -- "1" ConvertCsvVMUwp
 
 ConcatenationVMUwp "1" --> "1" PdfModel
 ConvertCsvVMUwp "1" --> "1" PdfModel
+
+' Modelパッケージ
+class PdfModel {
+    -List<string> csvHeader
+    +Init()
+    +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFile)
+    +ConvertCsvToPdf(\n\tList<CheckItem> csvHeader,\n\tList<string[]> csvContent,\n\tstring pdfFilePath)
+    +SetDstPageSize(string pageSize)
+    +SetDstMargin(\n\tfloat top,\n\tfloat left,\n\tfloat right,\n\tfloat bottom)
+    +SetDstPagePortrait()
+    +SetDstPageLandscape()
+    +SetDstHeaderFontSize(float fontSize)
+    +SetDstHeaderFontFamily(string fontName)
+    +SetDstHeaderMarkupStart(string markupStart)
+    +SetDstHeaderMarkupEnd(string markupEnd)
+    +SetDstContentFontSize(float fontSize)
+    +SetDstContentFontFamily(string fontName)
+    +GetPageSizeList(): List<string>
+    +GetFontFamilyList(): List<string>
+}
+enum PageOrientation {
+    Portrait
+    Landscape
+}
+class CsvModel {
+    +List<CheckItem> HeaderItems
+    -List<string[]> table
+    +LoadCsv(string csvFilePath)
+    +GetHeaderList(): List<CheckItem>
+    +GetContentTable(): List<string[]>
+}
+class FileModel {
+    +GetOpenFilePath(): string
+    +GetOpenFilePath(\n\tstring fileDescription,\n\tstring extension): string
+    +GetSaveFilepath(): string
+    +GetSaveFilePath(\n\tstring fileDescription,\n\tstring extension): string
+}
+class CheckItem {
+    +bool IsChecked
+    +string Text
+}
+PdfModel "1" --> "1" IPdfLogic : pdfLogic
+PageOrientation "1" <- "1" PdfModel : pageOrientation
+PdfModel "1" -> "*" Rectangle : <<List>> pageSizeList
+
+' PdfLogicパッケージ
+interface IPdfLogic {
+    +Init()
+    +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFilePath)
+    +ConvertCsvToPdf(\n\tList<string> csvHeader,\n\tList<List<string>> csvContent,\n\tstring pdfFilePath)
+    +SetDstPageSize(Rectangle pageSize)
+    +SetIsDstPageRotate(bool rotate)
+    +SetDstMargin(Margin margin)
+    +SetDstHeaderFontSize(float fontSize)
+    +SetDstHeaderFontFamily(string fontName)
+    +SetDstHeaderMarkupStart(string markupStart)
+    +SetDstHeaderMarkupEnd(string markupEnd)
+    +SetDstContentFontSize(float fontSize)
+    +SetDstContentFontFamily(string fontName)
+}
+class PdfLogic {
+    -float dstFontSize
+    -string dstFontName
+}
+class Margin {
+    +float Top
+    +float Left
+    +float Right
+    +float Bottom
+}
+IPdfLogic <|.. PdfLogic
+Margin "1" <- "1" PdfLogic
+PdfLogic "1" -> "1" PageSize : dstPageSize
+
+' iTextSharpパッケージ
+PageSize "1" -> "*" Rectangle
 
 @enduml
