@@ -39,12 +39,33 @@ namespace Model
             this.fontNameList.Sort();
         }
 
-        public void ConvertCsvToPdf(List<CheckItem> csvHeader, List<string[]> csvContent, string pdfFilePath)
+        public bool ConvertCsvToPdf(List<CheckItem> csvHeader, List<string[]> csvContent, string pdfFilePath)
         {
             if (string.IsNullOrEmpty(pdfFilePath)) throw new ArgumentNullException();
             if (csvHeader.Count == 0 || csvContent.Count == 0) throw new NotSupportedException();
 
-            throw new NotImplementedException();
+            List<string> targetCsvHeader = new List<string>();
+            List<List<string>> targetCsvContent = new List<List<string>>();
+
+            for (int rowIndex = 0; rowIndex < csvContent.Count; rowIndex++)
+            {
+                targetCsvContent.Add(new List<string>());
+            }
+
+            for (int columnIndex = 0; columnIndex < csvHeader.Count; columnIndex++)
+            {
+                if (csvHeader[columnIndex].IsChecked)
+                {
+                    targetCsvHeader.Add(csvHeader[columnIndex].Text);
+                    for (int rowIndex = 0; rowIndex < csvContent.Count; rowIndex++)
+                    {
+                        targetCsvContent[rowIndex].Add(csvContent[rowIndex][columnIndex]);
+                    }
+                }
+            }
+
+            this.pdfLogic.ConvertCsvToPdf(targetCsvHeader, targetCsvContent, pdfFilePath);
+            return true;
         }
 
         public void SetDstPageSize(string pageSize)

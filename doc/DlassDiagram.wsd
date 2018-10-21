@@ -144,7 +144,7 @@ PdfModel "1" -> "*" Rectangle : <<List>> pageSizeList
 interface IPdfLogic {
     +Init()
     +Concatenate(\n\tstring srcFile1Path,\n\tstring srcFile2Path,\n\tstring dstFilePath)
-    +ConvertCsvToPdf(\n\tList<CheckItem> csvHeader,\n\tList<string[]> csvContent,\n\tstring pdfFilePath)
+    +ConvertCsvToPdf(\n\tList<string> csvHeader,\n\tList<List<string>> csvContent,\n\tstring pdfFilePath)
     +SetDstPageSize(Rectangle pageSize)
     +SetIsDstPageRotate(bool rotate)
     +SetDstMargin(Margin margin)

@@ -36,7 +36,7 @@ namespace MyPdfGeneratorWpf.ViewModel
             set
             {
                 this.SetProperty(ref this._isPortrait, value);
-                this.pdfModel.SetDstPagePortrait();
+                if (this._isPortrait) this.pdfModel.SetDstPagePortrait();
             }
         }
 
@@ -47,11 +47,11 @@ namespace MyPdfGeneratorWpf.ViewModel
             set
             {
                 this.SetProperty(ref this._isLandscape, value);
-                this.pdfModel.SetDstPageLandscape();
+                if (this._isLandscape) this.pdfModel.SetDstPageLandscape();
             }
         }
 
-        private string _marginTop = 0F.ToString();
+        private string _marginTop = 40F.ToString();
         public string MarginTop
         {
             get { return this._marginTop; }
@@ -66,7 +66,7 @@ namespace MyPdfGeneratorWpf.ViewModel
             }
         }
 
-        private string _marginLeft = 0F.ToString();
+        private string _marginLeft = 40F.ToString();
         public string MarginLeft
         {
             get { return this._marginLeft; }
@@ -81,7 +81,7 @@ namespace MyPdfGeneratorWpf.ViewModel
             }
         }
 
-        private string _marginRight = 0F.ToString();
+        private string _marginRight = 40F.ToString();
         public string MarginRight
         {
             get { return this._marginRight; }
@@ -96,7 +96,7 @@ namespace MyPdfGeneratorWpf.ViewModel
             }
         }
 
-        private string _marginBottom = 0F.ToString();
+        private string _marginBottom = 40F.ToString();
         public string MarginBottom
         {
             get { return this._marginBottom; }
@@ -111,7 +111,7 @@ namespace MyPdfGeneratorWpf.ViewModel
             }
         }
 
-        private string _headerFontSize = 14F.ToString();
+        private string _headerFontSize = 12F.ToString();
         public string HeaderFontSize
         {
             get { return this._headerFontSize; }
@@ -129,7 +129,7 @@ namespace MyPdfGeneratorWpf.ViewModel
             set { this.SetProperty(ref this._headerFontNameList, value); }
         }
 
-        private string _headerFontNameSelected = "メイリオ";
+        private string _headerFontNameSelected = "メイリオ ボールド";
         public string HeaderFontNameSelected
         {
             get { return this._headerFontNameSelected; }
@@ -269,7 +269,23 @@ namespace MyPdfGeneratorWpf.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    this.pdfModel.ConvertCsvToPdf(this.csvModel.GetHeaderList(), this.csvModel.GetContentTable(), this.OutputPdfFilePath);
+                    bool result = this.pdfModel.ConvertCsvToPdf(this.csvModel.GetHeaderList(), this.csvModel.GetContentTable(), this.OutputPdfFilePath);
+                    if (result)
+                    {
+                        System.Windows.MessageBox.Show(
+                            "Conversion succeeded.",
+                            "Completed!",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show(
+                            "Conversion failed.",
+                            "Error",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Error);
+                    }
                 });
             }
         }
@@ -291,6 +307,22 @@ namespace MyPdfGeneratorWpf.ViewModel
 
             this.HeaderFontNameList = this.pdfModel.GetFontFamilyList();
             this.ContentFontNameList = this.pdfModel.GetFontFamilyList();
+
+            this.pdfModel.SetDstPageSize(this.PageSizeSelected);
+            if (this.IsPortrait) this.pdfModel.SetDstPagePortrait();
+            else if (this.IsLandscape) this.pdfModel.SetDstPageLandscape();
+            this.pdfModel.SetDstMargin(
+                float.Parse(this.MarginTop),
+                float.Parse(this.MarginLeft),
+                float.Parse(this.MarginRight),
+                float.Parse(this.MarginBottom));
+            this.pdfModel.SetDstHeaderFontSize(float.Parse(this.HeaderFontSize));
+            this.pdfModel.SetDstHeaderFontFamily(this.HeaderFontNameSelected);
+            this.pdfModel.SetDstHeaderMarkupStart(this.HeaderMarkupStart);
+            this.pdfModel.SetDstHeaderMarkupEnd(this.HeaderMarkupEnd);
+            this.csvModel.HeaderItems = this.TargetColumn;
+            this.pdfModel.SetDstContentFontSize(float.Parse(this.ContentFontSize));
+            this.pdfModel.SetDstContentFontFamily(this.ContentFontNameSelected);
         }
     }
 }
