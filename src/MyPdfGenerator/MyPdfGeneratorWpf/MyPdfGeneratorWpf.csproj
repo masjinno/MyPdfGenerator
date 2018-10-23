@@ -127,5 +127,25 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource\Prism.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource\itextsharp.dll" />
+    <EmbeddedResource Include="Resource\Model.dll" />
+    <EmbeddedResource Include="Resource\PdfLib.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(SolutionDir)packages\Prism.Core.7.1.0.431\lib\uap10.0.16299\Prism.dll" "$(ProjectDir)Resource\Prism.dll"
+copy "$(SolutionDir)Model\bin\$(ConfigurationName)\Model.dll" "$(ProjectDir)Resource\Model.dll"
+</PreBuildEvent>
+  </PropertyGroup>
+  <Target Name="AfterResolveReferences">
+  <ItemGroup>
+    <EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
+      <LogicalName>%(ReferenceCopyLocalPaths.DestinationSubDirectory)%(ReferenceCopyLocalPaths.Filename)%(ReferenceCopyLocalPaths.Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+</Target>
 </Project>

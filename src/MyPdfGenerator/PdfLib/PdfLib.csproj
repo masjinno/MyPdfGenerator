@@ -51,5 +51,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resource\itextsharp.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(SolutionDir)packages\iTextSharp.5.5.13\lib\itextsharp.dll" "$(ProjectDir)Resource\itextsharp.dll"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
