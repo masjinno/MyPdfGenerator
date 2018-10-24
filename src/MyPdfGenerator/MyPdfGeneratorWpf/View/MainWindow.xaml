@@ -13,6 +13,7 @@
         <TabControl>
             <TabItem Header="Concatenate">
                 <Grid Background="#FFE5E5E5">
+                    <View:Concatenation/>
                 </Grid>
             </TabItem>
             <TabItem Header="Convert CSV">

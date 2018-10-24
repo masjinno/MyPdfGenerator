@@ -67,6 +67,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\Concatenation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ConvertCsv.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,7 +83,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModel\ConcatenationVM.cs" />
     <Compile Include="ViewModel\ConvertCsvVM.cs" />
+    <Compile Include="View\Concatenation.xaml.cs">
+      <DependentUpon>Concatenation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ConvertCsv.xaml.cs">
       <DependentUpon>ConvertCsv.xaml</DependentUpon>
     </Compile>
