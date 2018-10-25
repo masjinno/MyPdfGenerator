@@ -24,17 +24,22 @@
                 <Bold>Concatenate</Bold>
             </Button>
         </Grid>
-        <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding Path=InputPdfPathList}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel Margin="3">
-                        <TextBlock DockPanel.Dock="Left" Text="input PDF: " VerticalAlignment="Center"/>
-                        <Button DockPanel.Dock="Right" Content="Browse" Command="{Binding Path=BrowseOpenFile}"/>
-                        <TextBox Text="{Binding Path=FilePath}"/>
-                    </DockPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <Button Content="+"/>
+        <ScrollViewer>
+            <DockPanel LastChildFill="False">
+                <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding Path=InputPdfPathList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Button DockPanel.Dock="Left" Content=" - " Command="{Binding Path=RemoveItem}"/>
+                                <TextBlock DockPanel.Dock="Left" Text="input PDF: " VerticalAlignment="Center"/>
+                                <Button DockPanel.Dock="Right" Content="Browse" Command="{Binding Path=BrowseOpenFile}"/>
+                                <TextBox Text="{Binding Path=FilePath}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Button DockPanel.Dock="Top" Content=" + " HorizontalAlignment="Center" Margin="5"/>
+            </DockPanel>
+        </ScrollViewer>
     </DockPanel>
 </UserControl>

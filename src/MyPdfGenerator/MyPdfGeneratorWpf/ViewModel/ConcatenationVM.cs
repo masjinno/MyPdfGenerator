@@ -29,12 +29,19 @@ namespace MyPdfGeneratorWpf.ViewModel
 
         #region Binding用コマンド
 
+        public 
+
         #endregion
 
         public ConcatenationVM()
         {
             this.InputPdfPathList = new List<OpenFileItemVM>();
             this.InputPdfPathList.Add(new OpenFileItemVM());
+        }
+
+        private void RemoveInputPdfPathItem(OpenFileItemVM removeTarget)
+        {
+            this.InputPdfPathList.Remove(removeTarget);
         }
 
 
@@ -63,6 +70,17 @@ namespace MyPdfGeneratorWpf.ViewModel
                         {
                             // do nothing
                         }
+                    });
+                }
+            }
+
+            public ICommand RemoveItem
+            {
+                get
+                {
+                    return new DelegateCommand(() =>
+                    {
+                        
                     });
                 }
             }
